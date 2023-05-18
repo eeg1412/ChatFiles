@@ -33,6 +33,9 @@ export const OpenAIStream = async (
     }),
   });
 
+  return resToStream(res);
+};
+export const resToStream = async (res: Response) => {
   if (res.status !== 200) {
     const statusText = res.statusText;
     throw new Error(`OpenAI API returned an error: ${statusText}`);
@@ -66,7 +69,9 @@ export const OpenAIStream = async (
       const parser = createParser(onParse);
 
       for await (const chunk of res.body as any) {
-        parser.feed(decoder.decode(chunk));
+        const decodeRes = decoder.decode(chunk);
+        parser.feed(decodeRes);
+        console.log(decodeRes);
       }
     },
   });
