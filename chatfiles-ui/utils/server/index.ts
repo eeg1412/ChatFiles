@@ -70,6 +70,7 @@ export const resToStream = async (res: Response) => {
 
       for await (const chunk of res.body as any) {
         const decodeRes = decoder.decode(chunk);
+        const demoData = 'data:{"id":"chatcmpl-7HWMw7mbwh9amCxrYi5c6Xq8LbWKb","object":"chat.completion.chunk","created":1684410358,"model":"gpt-3.5-turbo-0301","choices":[{"delta":{"content":"答"},"index":0,"finish_reason":null}]}\n\n'
         parser.feed(decodeRes);
         console.log(decodeRes);
       }
